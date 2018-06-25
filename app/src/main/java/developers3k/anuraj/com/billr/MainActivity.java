@@ -8,8 +8,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -18,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button button;
     EditText inputData;
+    ImageView qrImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +32,18 @@ public class MainActivity extends AppCompatActivity {
 
         button = (Button) findViewById(R.id.button);
         inputData = (EditText) findViewById(R.id.editText);
+        qrImage = (ImageView) findViewById(R.id.imageView);
 
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), inputData.getText(),
-                        Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), inputData.getText(),
+//                        Toast.LENGTH_LONG).show();
+
+                String urlimage = "https://api.qrserver.com/v1/create-qr-code/?size=150x150&data="+inputData.getText();
+                Picasso.get()
+                        .load(urlimage)
+                        .resize(150,150).into(qrImage);
+
             }
         });
 
